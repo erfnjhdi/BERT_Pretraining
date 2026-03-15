@@ -16,7 +16,11 @@ Raw text corpus
     → Loss curve visualization
     → Embedding extraction & cosine similarity analysis
 ```
+## Results
 
+Train loss: 1.292, Valid loss: 1.1584 after 15 epochs
+
+Test loss: 1.1755
 
 ## Tech Stack
 

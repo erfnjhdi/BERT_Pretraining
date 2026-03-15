@@ -69,9 +69,10 @@ def main():
 
     # Embedding analysis
     print("\nEmbedding analysis:\n")
-    all_embeddings = get_embedding(config.EMBED_PROBE_TEXT, tokenizer, model, device=str(config.DEVICE))
-
-    emb = {label: all_embeddings[idx] for label, idx in config.EMBED_LABELS.items()}
+    emb = {}
+    for word in config.EMBED_WORDS:
+        word_emb = get_embedding(word, tokenizer, model, device=str(config.DEVICE))
+        emb[word] = word_emb.mean(dim=0)
 
     conf_mat, labels = cosine_similarity_matrix(emb)
     print("Cosine similarity matrix:")

@@ -4,19 +4,18 @@ from collections import Counter
 class CharBPETokenizer:
     def __init__(self, vocab_size=100):
         self.vocab_size = vocab_size
-        self.vocab = set()
         self.special_tokens = ["[UNK]", "[MASK]", "[SEP]"]
 
     def train(self, text):
         tokens = list(text)
-        vocab = Counter(tokens)
+        initial_vocab = set(tokens) | set(self.special_tokens)
+        num_merges = self.vocab_size - len(initial_vocab)
 
-        while len(vocab) < self.vocab_size:
+        for _ in range(max(0, num_merges)):
             pair_counts = Counter()
 
             for j in range(len(tokens) - 1):
-                pairs = (tokens[j], tokens[j + 1])
-                pair_counts[pairs] += 1
+                pair_counts[(tokens[j], tokens[j + 1])] += 1
 
             if not pair_counts:
                 break
@@ -34,7 +33,6 @@ class CharBPETokenizer:
                     i += 1
 
             tokens = new_tokens
-            vocab = Counter(tokens)
 
         vocab_set = set(tokens) | set(text) | set(self.special_tokens)
         self.vocab_list = sorted(list(vocab_set), key=len, reverse=True)

@@ -9,8 +9,7 @@ def get_embedding(word, tokenizer, model, device="cpu"):
     with torch.no_grad():
         ids = tokenizer.encode_ids(word)
         input_ids = torch.tensor([ids], dtype=torch.long, device=device)
-        model(input_ids)
-        encoded = model.encoded
+        encoded = model.encode(input_ids)
 
     return encoded.squeeze(0)
 

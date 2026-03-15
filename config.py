@@ -28,10 +28,4 @@ MASK_PROB = 0.15
 DEVICE = torch.device("cpu")
 
 # Embedding analysis
-EMBED_PROBE_TEXT = "the king supports the village and the queen helps the kingdom and the people "
-EMBED_LABELS = {
-    "king": 1,
-    "queen": 4,
-    "supports the village": 2,
-    "the": 0,
-}
+EMBED_WORDS = ["king", "queen", "the village", "the"]
